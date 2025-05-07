@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using GonzalezF_RicaldeN_Boadad_EspinozaA.Models;
+using GonzalezF_RicaldeN_Boadad_EspinozaA.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GonzalezF_RicaldeN_Boadad_EspinozaA.Controllers
@@ -13,9 +14,12 @@ namespace GonzalezF_RicaldeN_Boadad_EspinozaA.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            GeminiRepository repo = new GeminiRepository();
+            string answer = await repo.GetChatbotResponse("Dame un resumen de la pelicula titanic");
+            return View(answer);
+
         }
 
         public IActionResult Privacy()
