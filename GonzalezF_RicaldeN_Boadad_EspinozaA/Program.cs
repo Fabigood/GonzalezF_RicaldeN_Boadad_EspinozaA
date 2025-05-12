@@ -1,7 +1,15 @@
+using GonzalezF_RicaldeN_Boadad_EspinozaA.Interfaces;
+using GonzalezF_RicaldeN_Boadad_EspinozaA.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IChatBotServices, GeminiRepository>();
+
+
+
 
 var app = builder.Build();
 

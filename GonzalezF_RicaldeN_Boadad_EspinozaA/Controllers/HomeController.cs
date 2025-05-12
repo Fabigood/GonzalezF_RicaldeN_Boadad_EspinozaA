@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using GonzalezF_RicaldeN_Boadad_EspinozaA.Interfaces;
 using GonzalezF_RicaldeN_Boadad_EspinozaA.Models;
 using GonzalezF_RicaldeN_Boadad_EspinozaA.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -9,15 +10,18 @@ namespace GonzalezF_RicaldeN_Boadad_EspinozaA.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IChatBotServices _chatBotServices;
+
+        public HomeController(ILogger<HomeController> logger, IChatBotServices chaBotService)
         {
             _logger = logger;
+            _chatBotServices = chaBotService;
         }
 
         public async Task<IActionResult> Index()
-        {
-            GeminiRepository repo = new GeminiRepository();
-            string answer = await repo.GetChatbotResponse("Dame un resumen de la pelicula titanic");
+        { 
+            
+            string answer = await _chatBotServices.GetChatbotResponse("Dame un resumen de la pelicula titanic");
             return View(answer);
 
         }
