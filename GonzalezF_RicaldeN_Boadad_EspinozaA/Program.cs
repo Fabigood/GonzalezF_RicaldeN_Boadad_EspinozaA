@@ -1,7 +1,12 @@
-using GonzalezF_RicaldeN_Boadad_EspinozaA.Interfaces;
+﻿using GonzalezF_RicaldeN_Boadad_EspinozaA.Interfaces;
 using GonzalezF_RicaldeN_Boadad_EspinozaA.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using GonzalezF_RicaldeN_Boadad_EspinozaA.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<BDDChatContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BDDChatContext") ?? throw new InvalidOperationException("Connection string 'BDDChatContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
